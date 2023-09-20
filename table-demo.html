@@ -11,7 +11,7 @@
 
 
 
-<title>amiright?</title>
+<title>table-demo</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,16 +348,295 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">amiright?</h1>
 
 </div>
 
 
-<p><img src="img/ryan-v-ryan.jpg" /></p>
-<div id="lorem-ipsum" class="section level3">
-<h3>Lorem Ipsum</h3>
-<p>Lorem ipsum dolor sit amet….</p>
-</div>
+<p>{{ content }}</p>
+<h2>
+Ryan vs Ryan: Liquid Table Demo
+</h2>
+<table id="ryan-v-ryan">
+<thead>
+<tr>
+<th>
+<h3>
+Ryan Reynolds
+</h3>
+</th>
+<th>
+<h3>
+Ryan Gosling
+</h3>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<h4>
+Strengths
+</h4>
+<ul>
+{% for item in page.reynolds.strengths %}
+<li>
+{{ item }}
+</li>
+<p>{% endfor %}</p>
+</ul>
+<p><br></p>
+<h4>
+Weaknessess
+</h4>
+<ul>
+{% for item in page.reynolds.weaknesses %}
+<li>
+{{ item }}
+</li>
+<p>{% endfor %}</p>
+</ul>
+</td>
+<td>
+<h4>
+Strengths
+</h4>
+<ul>
+{% for item in page.gosling.strengths %}
+<li>
+{{ item }}
+</li>
+<p>{% endfor %}</p>
+</ul>
+<p><br></p>
+<h4>
+Weaknessess
+</h4>
+<ul>
+{% for item in page.gosling.weaknesses %}
+<li>
+{{ item }}
+</li>
+<p>{% endfor %}</p>
+</ul>
+</td>
+</tr>
+</table>
+<p><br></p>
+<hr>
+<p><br></p>
+<blockquote>
+<pre>
+<code>
+
+    ###
+    ###  LAYOUT INHERITANCE
+    ###
+    ###  pages built by adding elements 
+    ###  to other page layouts 
+    ###
+
+          default.html layout 
+          │
+          └── nice-text.html layout 
+              │
+              └── liquid-table.html layout
+                  # see liquid table below
+
+
+
+          ###
+          ###  default.html layout
+          ###
+
+          &lt;html&gt;
+          &lt;head&gt;
+            &lt;body&gt;                                
+              &lt;header&gt;   
+
+              {{ content }}     
+
+              &lt;footer&gt;           
+            &lt;/body&gt;  
+          &lt;/html&gt;     
+
+          ###
+          ###  {{content}}
+          ###  is replaced by
+          ###  whatever content
+          ###  is on the page that
+          ###  uses the default.html 
+          ###  template 
+          ###
+
+
+
+          ###
+          ### nice-text.html layout
+          ###
+
+          ---
+          layout: default
+          ---
+
+          &lt;div class=&quot;pretty-text&quot;&gt;
+
+          &lt;h1&gt; {{ page.title }} &lt;/h1&gt;
+
+          {{ content }}
+
+          &lt;/div&gt;
+
+
+          ###
+          ### liquid-table.html layout
+          ###
+
+          ---
+          layout: nice-text
+          ---
+
+          {{ content }}
+
+          #  liquid table starts here
+
+
+
+
+
+    ###
+    ###  LIQUID TABLE ADDED USING YAML DATA
+    ###
+    ###  liquid is a simple markup language that allows
+    ###  web designers to separate page layouts from
+    ###  page content without databases
+    ###
+    ###  {%  function in liquid  %}
+    ###  {{  variable in liquid  }}
+    ###
+
+        ###
+        ###  YAML HEADER FOR PAGE
+        ###
+
+        ---
+        layout: liquid-table
+        title: &#39;amiright?&#39;
+        reynolds:
+          strengths:
+          - good father
+          - funny
+          - dated alanis morissette
+          weaknesses: 
+          - singing
+          - green lantern movie
+          - tennis backhand 
+        gosling:
+          strengths: 
+          - builds houses
+          - is a real boy
+          - never dated alanis morissette
+          weaknesses: 
+          - micky mouse club
+          - cries a lot
+          - not ryan reynolds
+        ---
+
+       ###
+       ###  LIQUID TAG TABLE IN LAYOUT
+       ###
+       ###  HTML ELEMENTS: 
+       ###  &lt;thead&gt; table header
+       ###  &lt;tr&gt;  table row 
+       ###  &lt;td&gt;  table cell (or data)
+       ###  &lt;ul&gt; unordered list
+       ###  &lt;li&gt; list item 
+       ###
+
+        &lt;h2&gt; Ryan vs Ryan &lt;/h2&gt;
+
+        &lt;table id=&quot;ryan-v-ryan&quot;&gt;
+
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;  &lt;h3&gt;  Ryan Reynolds  &lt;/h3&gt;  &lt;/th&gt;
+            &lt;th&gt;  &lt;h3&gt;  Ryan Gosling  &lt;/h3&gt;  &lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+
+        &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;
+            &lt;h4&gt;  Strengths  &lt;/h4&gt;
+            &lt;ul&gt;
+
+              ###  LIQUID LOOPS WITH YAML DATA
+              ###  reynolds:
+              ###    strengths:
+              ###    - good father
+              ###    - funny
+              ###    - dated alanis morissette
+
+              {% for item in page.reynolds.strengths %}
+                 &lt;li&gt;  {{ item }}  &lt;/li&gt;
+              {% endfor %}
+
+              ###    LIQUID LOOP CREATES HTML CODES:
+              ###    &lt;li&gt; good father &lt;/li&gt;
+              ###    &lt;li&gt; funny &lt;/li&gt;
+              ###    &lt;li&gt; dated alanis morissette &lt;/li&gt;        
+
+            &lt;/ul&gt;
+            &lt;br&gt;
+            &lt;h4&gt;  Weaknessess  &lt;/h4&gt;
+            &lt;ul&gt;
+
+              {% for item in page.reynolds.weaknesses %}
+                 &lt;li&gt;  {{ item }}  &lt;/li&gt;
+              {% endfor %}
+
+            &lt;/ul&gt;  
+          &lt;/td&gt;
+          &lt;td&gt;
+            &lt;h4&gt;  Strengths  &lt;/h4&gt;
+            &lt;ul&gt;
+
+              {% for item in page.gosling.strengths %}
+                &lt;li&gt;  {{ item }}  &lt;/li&gt;
+              {% endfor %}
+
+            &lt;/ul&gt;
+            &lt;br&gt;
+            &lt;h4&gt;  Weaknessess  &lt;/h4&gt;
+            &lt;ul&gt;
+
+              {% for item in page.gosling.weaknesses %}
+                 &lt;li&gt;  {{ item }}  &lt;/li&gt;
+              {% endfor %}
+
+            &lt;/ul&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt; 
+        &lt;/table&gt;
+
+</code>
+</pre>
+</blockquote>
+<style>
+pre{
+font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+margin-bottom: 10px;
+padding: 5px;
+background-color: #eee;
+width: 750px!ie7;
+padding-bottom: 20px!ie7;
+}
+ui {
+padding-inline-start: 10px;
+}
+table {
+margin-left: 20px;
+}
+</style>
 
 
 

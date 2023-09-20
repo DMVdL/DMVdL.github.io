@@ -1,10 +1,10 @@
 ---
-layout: nice-text
+layout: default
 ---
   
 {{ content }}
 
-
+![](img/ryan-v-ryan.jpg) 
 
 
 <h2> Ryan vs Ryan: Liquid Table Demo </h2>

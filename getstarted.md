@@ -73,7 +73,7 @@ Scroll down to see the steps involved, but here is a 40-second video just as a r
 Fork this project by clicking the __*Fork*__ button at the top right corner of this page. Forking means that you now copied this entire project and all the files into your account.
 </div>
 
-<div class="gs-section-01" markdown="1">
+<div class="gs-section-02" markdown="1">
 
 ### 2. Rename the project to `<yourusername>.github.io`
 
@@ -243,7 +243,7 @@ I'd also like to thank [Dr. Jekyll's Themes](https://drjekyllthemes.github.io/),
 }
 
 .gs-section-02 h3 {
-    color: darkgreen
+    color: green
 }
 
 .gs-section-02 p {
